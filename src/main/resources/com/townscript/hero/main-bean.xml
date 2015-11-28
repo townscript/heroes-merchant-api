@@ -141,6 +141,20 @@
 			<ref local="ApplicationDataDaoImpl"/>
 		</property>
 	</bean>
+	
+	<bean id="TransactionDetailDaoImpl" class="com.townscript.hero.dao.transaction.TransactionDetailDaoImpl">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+		<property name="jdbcTemplate">
+			<ref local="jdbcTemplate" />
+		</property>
+	</bean>
+	<bean id="TransactionDetailServiceImpl" class="com.townscript.hero.service.transaction.TransactionDetailServiceImpl">
+		<property name="transactionDetailDao">
+			<ref local="TransactionDetailDaoImpl"/>
+		</property>
+	</bean>
 
 	<bean id="event_data_hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate"
 		lazy-init="true">
