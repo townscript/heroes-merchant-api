@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+     http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-3.0.xsd"
+	default-lazy-init="true">
+
+	<bean id="loadproperties" class="com.dyulok.dewa.utility.ProjectProperties">
+	</bean>
+
+
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>file:${CATALINA_HOME}/conf/merchantdatabase_project.properties
+			</value>
+		</property>
+	</bean>
+
+	<bean id="dataSource" destroy-method="close"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName">
+			<value>com.mysql.jdbc.Driver</value>
+		</property>
+		<property name="url">
+			<value>${jdbc.mysql.url}</value>
+		</property>
+		<property name="username">
+			<value>${jdbc.mysql.username}</value>
+		</property>
+		<property name="password">
+			<value>${jdbc.mysql.password}</value>
+		</property>
+		<property name="validationQuery">
+			<value>SELECT 1</value>
+		</property>
+		<property name="testOnBorrow">
+			<value>true</value>
+		</property>
+	</bean>
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<constructor-arg>
+			<ref bean="dataSource" />
+		</constructor-arg>
+	</bean>
+
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.cache.use_structured_entries">false</prop>
+				<prop key="hibernate.generate_statistics">true</prop>
+				<prop key="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.EhCacheRegionFactory</prop>
+				<prop key="hibernate.cache.use_second_level_cache">false</prop>
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+				<prop key="hibernate.query.factory_class"></prop>
+			</props>
+		</property>
+		<property name="annotatedClasses">
+			<list>
+				<value>com.townscript.hero.model.merchant.MerchantUserData</value>
+				<value>com.townscript.hero.model.merchant.MerchantAccountDetails</value>
+				<value>com.townscript.hero.model.application.ApplicationData</value>
+				<value>com.townscript.hero.model.application.PaymentGatewayMap</value>
+				<value>com.townscript.hero.model.paymentsolution.PaymentGatewayData</value>
+				
+			</list>
+		</property>
+
+		<property name="configurationClass">
+			<value>org.hibernate.cfg.AnnotationConfiguration</value>
+		</property>
+
+		<property name="annotatedPackages">
+			<list>
+				<value>com.townscript.hero</value>
+			</list>
+		</property>
+
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	
+
+	<bean id="MerchantUserDataDaoImpl" class="com.townscript.hero.dao.merchant.MerchantUserDataDaoImpl">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+		<property name="jdbcTemplate">
+			<ref local="jdbcTemplate" />
+		</property>
+	</bean>
+	<bean id="MerchantUserDataServiceImpl" class="com.townscript.hero.service.merchant.MerchantUserDataServiceImpl">
+		<property name="merchantUserDataDao">
+			<ref local="MerchantUserDataDaoImpl" />
+		</property>
+	</bean>
+	
+	<bean id="MerchantAccountDetailDaoImpl" class="com.townscript.hero.dao.merchant.MerchantAccountDetailDaoImpl">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+		<property name="jdbcTemplate">
+			<ref local="jdbcTemplate" />
+		</property>
+	</bean>
+	<bean id="MerchantAccountDetailServiceImpl" class="com.townscript.hero.service.merchant.MerchantAccountDetailServiceImpl">
+		<property name="merchantAccountDetailDao">
+			<ref local="MerchantAccountDetailDaoImpl" />
+		</property>
+	</bean>
+
+	<bean id="ApplicationDataDaoImpl" class="com.townscript.hero.dao.application.ApplicationDataDaoImpl">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+		<property name="jdbcTemplate">
+			<ref local="jdbcTemplate" />
+		</property>
+	</bean>
+	<bean id="ApplicationDataServiceImpl" class="com.townscript.hero.service.application.ApplicationDataServiceImpl">
+		<property name="applicationDataDao">
+			<ref local="ApplicationDataDaoImpl"/>
+		</property>
+	</bean>
+
+	<bean id="event_data_hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate"
+		lazy-init="true">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<tx:annotation-driven proxy-target-class="true" />
+	<bean
+		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+	<bean
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+</beans>
