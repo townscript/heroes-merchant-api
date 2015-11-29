@@ -47,9 +47,10 @@ public class ApplicationDataDaoImpl extends HibernateDaoSupport implements Appli
 				"a.merchantId="+merchantId);
 		
 		if (applList != null && !applList.isEmpty()) {
-			return new ArrayList<ApplicationData>();
-		} else {
 			return applList;
+		} else {
+			
+			return new ArrayList<ApplicationData>();
 		}
 		
 	}
