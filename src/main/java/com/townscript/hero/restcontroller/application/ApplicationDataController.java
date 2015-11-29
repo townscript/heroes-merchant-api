@@ -42,7 +42,6 @@ public class ApplicationDataController {
 	}
 	
 	@SuppressWarnings({ "unchecked" })
-	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public @ResponseBody JSONObject addApplication(@RequestParam(value="json_data",required=true) String jsonRequest){
 
@@ -86,7 +85,6 @@ public class ApplicationDataController {
 	}
 	
 	@SuppressWarnings({ "unchecked" })
-	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public @ResponseBody JSONObject updateApplication(@RequestParam(value="json_data",required=true) String jsonRequest){
 
@@ -131,7 +129,6 @@ public class ApplicationDataController {
 	
 	
 	@SuppressWarnings("unchecked")
-	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
 	public @ResponseBody JSONObject loadApplication(@RequestParam(value="appid",required=true) String id){
 		
@@ -168,7 +165,6 @@ public class ApplicationDataController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/getpaymentoptions", method = RequestMethod.GET)
 	public @ResponseBody JSONObject loadPaymentOptionsForApplication(@RequestParam(value="appid",required=true) String id){
 		
@@ -212,8 +208,7 @@ public class ApplicationDataController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@Secured("ROLE_ADMIN")
-	@RequestMapping(value = "/get", method = RequestMethod.GET)
+	@RequestMapping(value = "/getall", method = RequestMethod.GET)
 	public @ResponseBody JSONObject loadAllApplicationForMerchant(@RequestParam(value="merchantid",required=true) String id){
 		
 		try {
@@ -250,7 +245,6 @@ public class ApplicationDataController {
 	}
 		
 	@SuppressWarnings("unchecked")
-	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public @ResponseBody JSONObject deleteApplicationDate(@RequestParam(value="appid",required=true) String id){
 			

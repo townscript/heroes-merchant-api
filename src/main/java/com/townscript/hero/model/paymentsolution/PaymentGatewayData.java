@@ -61,7 +61,7 @@ public class PaymentGatewayData{
 		this.salt = salt;
 	}
 
-	@Column(name="KEY")
+	@Column(name="API_KEY")
 	public String getKey() {
 		return key;
 	}

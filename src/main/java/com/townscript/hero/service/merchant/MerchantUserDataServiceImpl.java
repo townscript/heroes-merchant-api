@@ -1,11 +1,11 @@
 package com.townscript.hero.service.merchant;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.townscript.hero.dao.merchant.MerchantUserDataDao;
 import com.townscript.hero.model.merchant.MerchantUserData;
 
+@Transactional
 public class MerchantUserDataServiceImpl implements MerchantUserDataService{
 
 	private MerchantUserDataDao merchantUserDataDao;
@@ -35,6 +35,18 @@ public class MerchantUserDataServiceImpl implements MerchantUserDataService{
 	@Override
 	public MerchantUserData loadMerchantUserData(String emailId) {
 		return merchantUserDataDao.loadMerchantUserData(emailId);
+	}
+
+
+	@Override
+	public boolean isMerchantExist(String emailId) {
+		MerchantUserData merchantUserData = merchantUserDataDao.loadMerchantUserData(emailId);
+		if (merchantUserData != null) {
+			return true;
+		}else{
+			return false;
+		}
+		
 	}
 	
 	

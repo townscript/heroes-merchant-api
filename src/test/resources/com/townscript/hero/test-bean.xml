@@ -74,6 +74,7 @@
 				<value>com.townscript.hero.model.application.PaymentGatewayMap</value>
 				<value>com.townscript.hero.model.paymentsolution.PaymentGatewayData</value>
 				<value>com.townscript.hero.model.transaction.TransactionDetails</value>
+				
 			</list>
 		</property>
 

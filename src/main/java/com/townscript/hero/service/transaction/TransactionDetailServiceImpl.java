@@ -2,9 +2,12 @@ package com.townscript.hero.service.transaction;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.townscript.hero.dao.transaction.TransactionDetailDao;
 import com.townscript.hero.model.transaction.TransactionDetails;
 
+@Transactional
 public class TransactionDetailServiceImpl implements TransactionDetailService{
 
 	private TransactionDetailDao transactionDetailDao;

@@ -2,10 +2,13 @@ package com.townscript.hero.service.application;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.townscript.hero.dao.application.ApplicationDataDao;
 import com.townscript.hero.model.application.ApplicationData;
 import com.townscript.hero.model.application.PaymentGatewayMap;
 
+@Transactional
 public class ApplicationDataServiceImpl implements ApplicationDataService{
 
 	private ApplicationDataDao applicationDataDao;

@@ -42,7 +42,6 @@ public class MerchantAccountDetailController {
 	}
 	
 	@SuppressWarnings({ "unchecked" })
-	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public @ResponseBody JSONObject addApplication(@RequestParam(value="json_data",required=true) String jsonRequest){
 
@@ -86,7 +85,6 @@ public class MerchantAccountDetailController {
 	}
 	
 	@SuppressWarnings({ "unchecked" })
-	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public @ResponseBody JSONObject updateMerchantAccountDetails(@RequestParam(value="json_data",required=true) String jsonRequest){
 
@@ -130,7 +128,6 @@ public class MerchantAccountDetailController {
 	}
 	
 	@SuppressWarnings({ "unchecked" })
-	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
 	public @ResponseBody JSONObject loadMerchantAccountDetails(@RequestParam(value="accountid",required=true) String id){
 		try {
@@ -167,7 +164,6 @@ public class MerchantAccountDetailController {
 	}
 	
 	@SuppressWarnings({ "unchecked" })
-	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/getall", method = RequestMethod.GET)
 	public @ResponseBody JSONObject loadAllMerchantAccountDetails(@RequestParam(value="merchantid",required=true) String id){
 		try {

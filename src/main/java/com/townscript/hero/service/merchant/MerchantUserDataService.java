@@ -9,4 +9,6 @@ public interface MerchantUserDataService {
 	MerchantUserData loadMerchantUserData(int merchantId);
 	
 	MerchantUserData loadMerchantUserData(String emailId);
+	
+	boolean isMerchantExist(String emailId);
 }

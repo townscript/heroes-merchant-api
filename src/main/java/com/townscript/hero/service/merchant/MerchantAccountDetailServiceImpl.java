@@ -2,9 +2,12 @@ package com.townscript.hero.service.merchant;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.townscript.hero.dao.merchant.MerchantAccountDetailDao;
 import com.townscript.hero.model.merchant.MerchantAccountDetails;
 
+@Transactional
 public class MerchantAccountDetailServiceImpl implements MerchantAccountDetailService{
 
 	private MerchantAccountDetailDao merchantAccountDetailDao;

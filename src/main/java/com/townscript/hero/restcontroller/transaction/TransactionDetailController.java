@@ -40,7 +40,6 @@ public class TransactionDetailController {
 	}
 	
 	@SuppressWarnings({ "unchecked" })
-	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public @ResponseBody JSONObject addApplication(@RequestParam(value="json_data",required=true) String jsonRequest){
 
@@ -84,7 +83,6 @@ public class TransactionDetailController {
 	}
 	
 	@SuppressWarnings({ "unchecked" })
-	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/getall", method = RequestMethod.GET)
 	public @ResponseBody JSONObject getAllTransactionDetails(@RequestParam(value="merchantid",required=true) String id){
 		try {
